@@ -17,7 +17,7 @@ function Register() {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://quicktalk-backend-kni5.onrender.com/v1/otp/register",
+        "https://quicktalk-backend-kni5.onrender.com/api/v1/otp/register",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
