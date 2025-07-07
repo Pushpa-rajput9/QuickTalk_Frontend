@@ -38,8 +38,8 @@ function LoginForm() {
         "https://quicktalk-backend-kni5.onrender.com/api/v1/otp/login",
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
           credentials: "include", // ✅ include cookie
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(input),
         }
       );

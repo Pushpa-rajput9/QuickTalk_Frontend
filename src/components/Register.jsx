@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import chaticon from "../assets/chat.svg";
 import LoginBanner from "../assets/Untitled (1).png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 function Register() {
   const [inputNo, setInput] = useState({
     identifier: "",
     otp: "",
     password: "",
   });
+  const navigate = useNavigate();
   const [message, setMeassage] = useState("");
   const handlechange = (e) => {
     const { name, value } = e.target;
@@ -20,8 +21,8 @@ function Register() {
         "https://quicktalk-backend-kni5.onrender.com/api/v1/otp/register",
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
           credentials: "include",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             identifier: inputNo.identifier,
             password: inputNo.password,
@@ -31,6 +32,7 @@ function Register() {
       const result = await response.json();
       if (response.ok) {
         setMeassage(result.message);
+        navigate("/chat/home");
       } else {
         setMeassage(result.message);
       }
