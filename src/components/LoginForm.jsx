@@ -7,16 +7,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 function LoginForm() {
   const [input, setInput] = useState({ identifier: "", password: "" });
   const [message, setMessage] = useState("");
-  const [count, setCount] = useState(0);
-  const chat = ["Hello👋", "Hii👋", "kaise ho??"];
-  const navigate = useNavigate();
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCount((prevCount) => (prevCount + 1) % chat.length);
-    }, 2000);
 
-    return () => clearInterval(timer);
-  }, [count, chat.length]);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -48,7 +40,7 @@ function LoginForm() {
 
       if (res.ok) {
         setMessage(data.message);
-        navigate("/chat/home");
+        // navigate("/chat/home");
         console.log(navigate);
       } else {
         setMessage(data.message);
@@ -67,9 +59,6 @@ function LoginForm() {
           src={LoginBanner}
           alt="LoginBanner"
         />
-        <div className=" fixed bottom-72 left-[630px] ">
-          <div className="Text-black ">{chat[count]}</div>
-        </div>
       </div>
       <div className="w-1/2 max-md:w-full flex flex-col items-center justify-center">
         {" "}
