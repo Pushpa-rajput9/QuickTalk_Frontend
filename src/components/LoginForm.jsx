@@ -36,11 +36,13 @@ function LoginForm() {
         }
       );
       const data = await res.json();
-      console.log("Token cookie after login:", document.cookie);
 
+      document.cookie = `token=${data.token}; maxAge: 24 * 60 * 60 * 1000`;
+      console.log("Token cookie after login:", document.cookie);
       if (res.ok) {
         setMessage(data.message);
-        // navigate("/chat/home");
+
+        navigate("/chat/home");
         console.log(navigate);
       } else {
         setMessage(data.message);
