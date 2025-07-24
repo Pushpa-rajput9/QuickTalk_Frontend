@@ -1,8 +1,8 @@
 // LoginForm.jsx
 import { useState, useEffect } from "react";
-import LoginBanner from "../assets/Untitled (1).png";
+import LoginBanner from "../assets/YouTube Banner - Quick Talk - Real-Time Chat.gif";
 import chaticon from "../assets/chat.svg";
-import logo from "../assets/Minimalist Logo for QuikTalk App with Sound Waves.png";
+import logo from "../assets/quick-high-resolution-logo-transparent.png";
 import { NavLink, useNavigate } from "react-router-dom";
 function LoginForm() {
   const [input, setInput] = useState({ identifier: "", password: "" });
@@ -53,16 +53,17 @@ function LoginForm() {
   };
 
   return (
-    <main className=" flex max-md:flex max-md:flex-col w-screen bg-[#c5f1f2] ">
-      <div className="w-1/2 max-md:w-full">
+    <main className=" flex max-md:flex max-md:flex-col w-screen   ">
+      <div className="w-1/2 h-screen max-md:w-full bg-gradient-to-br from-[#cededc] via-[#fdfef5]  to-[#f8fadc] ">
+        <img className="w-40 h-16 " src={logo} alt="" />
         <img
-          className=" w-full h-screen max-md:h-[500px] object-cover"
+          className=" w-full mt-5"
           loading="eager"
           src={LoginBanner}
           alt="LoginBanner"
         />
       </div>
-      <div className="w-1/2 max-md:w-full flex flex-col items-center justify-center">
+      <div className="w-1/2 max-md:w-full flex flex-col items-center justify-center  bg-gradient-to-r from-[#0f2027] via-[#203a43] to-[#2c5364]">
         {" "}
         <div className=" w-96 max-md:w-11/12 h-[480px] max-md:p-2 p-10 pt-4 items-center mt-10 flex animate-slideIn flex-col  gap-2 bg-white rounded-lg shadow-lg shadow-black ">
           <img className=" w-28 h-12" src={chaticon} alt="chaticon" />

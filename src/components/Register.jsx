@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import chaticon from "../assets/chat.svg";
-import LoginBanner from "../assets/Untitled (1).png";
+import LoginBanner from "../assets/YouTube Banner - Quick Talk - Real-Time Chat.gif";
+import logo from "../assets/quick-high-resolution-logo-transparent.png";
 import { NavLink, useNavigate } from "react-router-dom";
 function Register() {
   const [inputNo, setInput] = useState({
@@ -70,16 +71,17 @@ function Register() {
   };
   return (
     <>
-      <div className=" flex flex-wrap w-full bg-[#c5f1f2] ">
-        <div className="w-1/2">
+      <div className=" flex flex-wrap w-full  ">
+        <div className="w-1/2 h-screen max-md:w-full bg-gradient-to-br from-[#cededc] via-[#fdfef5]  to-[#f8fadc] ">
+          <img className="w-40 h-16 " src={logo} alt="" />
           <img
-            className=" w-full h-screen"
-            src={LoginBanner}
+            className=" w-full mt-5"
             loading="eager"
+            src={LoginBanner}
             alt="LoginBanner"
           />
         </div>
-        <div className="w-1/2 flex flex-col items-center justify-center">
+        <div className="w-1/2 flex flex-col items-center justify-center bg-gradient-to-r from-[#0f2027] via-[#203a43] to-[#2c5364]">
           <div className=" w-96 h-[480px] p-10 pt-4 items-center mt-10 flex animate-slideIn flex-col  gap-2 bg-white rounded-lg shadow-lg shadow-black ">
             <img className=" w-28 h-12" src={chaticon} alt="chaticon" />
             <div className=" text-black font-bold text-2xl">

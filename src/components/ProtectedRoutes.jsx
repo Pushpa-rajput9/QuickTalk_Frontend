@@ -9,6 +9,7 @@ function ProtectedRoutes({ children }) {
 
   useEffect(() => {
     const token = Cookies.get("token");
+
     console.log("Token in ProtectedRoutes:", token);
     setIsAuthenticated(!!token);
     setIsLoading(false);
