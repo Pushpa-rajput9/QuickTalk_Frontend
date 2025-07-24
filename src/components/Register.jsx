@@ -72,26 +72,30 @@ function Register() {
   return (
     <>
       <div className=" flex flex-wrap w-full  ">
-        <div className="w-1/2 h-screen max-md:w-full bg-gradient-to-br from-[#cededc] via-[#fdfef5]  to-[#f8fadc] ">
-          <img className="w-40 h-16 " src={logo} alt="" />
+        <div className="w-1/2 h-screen  max-[820px]:h-fit  max-[820px]:w-full bg-gradient-to-br from-[#cededc] via-[#fdfef5]  to-[#f8fadc] ">
           <img
-            className=" w-full mt-5"
+            className="w-40 h-16  max-[820px]:h-14 relative top-3 ml-2 "
+            src={logo}
+            alt=""
+          />
+          <img
+            className=" w-full mt-5 max-[820px]:h-[350px] max-sm:h-[250px]"
             loading="eager"
             src={LoginBanner}
             alt="LoginBanner"
           />
         </div>
-        <div className="w-1/2 flex flex-col items-center justify-center bg-gradient-to-r from-[#0f2027] via-[#203a43] to-[#2c5364]">
-          <div className=" w-96 h-[480px] p-10 pt-4 items-center mt-10 flex animate-slideIn flex-col  gap-2 bg-white rounded-lg shadow-lg shadow-black ">
+        <div className="w-1/2 max-[820px]:w-full flex flex-col items-center justify-center bg-gradient-to-r from-[#0f2027] via-[#203a43] to-[#2c5364]">
+          <div className=" w-96 max-[820px]:w-[450px] max-[520px]:w-11/12 h-[480px] max-sm:p-4 p-10 pt-4 items-center mt-10 flex animate-slideIn flex-col  gap-2 bg-white rounded-lg shadow-lg shadow-black ">
             <img className=" w-28 h-12" src={chaticon} alt="chaticon" />
-            <div className=" text-black font-bold text-2xl">
+            <div className=" text-black font-bold text-2xl max-[317px]:text-lg">
               Welcome to QuikTalk!
             </div>
             <div className=" text-gray-500 text-[11px]">
               Enter your credentials to create your account
             </div>
             <form
-              className="flex flex-col gap-3 w-full items-center"
+              className="flex flex-col gap-3 w-full items-center "
               onSubmit={handleSubmit}
             >
               <div className=" w-full">

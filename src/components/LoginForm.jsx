@@ -53,21 +53,27 @@ function LoginForm() {
   };
 
   return (
-    <main className=" flex max-md:flex max-md:flex-col w-screen   ">
-      <div className="w-1/2 h-screen max-md:w-full bg-gradient-to-br from-[#cededc] via-[#fdfef5]  to-[#f8fadc] ">
-        <img className="w-40 h-16 " src={logo} alt="" />
+    <main className=" flex flex-wrap w-screen   ">
+      <div className="w-1/2 h-screen max-[820px]:h-fit max-[820px]:w-full bg-gradient-to-br from-[#cededc] via-[#fdfef5]  to-[#f8fadc] ">
         <img
-          className=" w-full mt-5"
+          className="w-40 h-16 max-[820px]:h-14 relative top-3 ml-2"
+          src={logo}
+          alt=""
+        />
+        <img
+          className=" w-full mt-5 max-[820px]:h-[350px] max-sm:h-[250px]"
           loading="eager"
           src={LoginBanner}
           alt="LoginBanner"
         />
       </div>
-      <div className="w-1/2 max-md:w-full flex flex-col items-center justify-center  bg-gradient-to-r from-[#0f2027] via-[#203a43] to-[#2c5364]">
+      <div className="w-1/2 max-[820px]:w-full flex flex-col items-center justify-center  bg-gradient-to-r from-[#0f2027] via-[#203a43] to-[#2c5364]">
         {" "}
-        <div className=" w-96 max-md:w-11/12 h-[480px] max-md:p-2 p-10 pt-4 items-center mt-10 flex animate-slideIn flex-col  gap-2 bg-white rounded-lg shadow-lg shadow-black ">
+        <div className=" w-96 max-[820px]:w-[450px] max-[520px]:w-11/12 h-[480px] max-sm:p-4 p-10 pt-4 items-center mt-10 flex animate-slideIn flex-col  gap-2 bg-white rounded-lg shadow-lg shadow-black ">
           <img className=" w-28 h-12" src={chaticon} alt="chaticon" />
-          <div className=" text-black font-bold text-2xl">Welcome back!</div>
+          <div className=" text-black font-bold text-2xl max-[317px]:text-lg">
+            Welcome back!
+          </div>
           <div className=" text-gray-500 text-[11px]">
             Enter your credentials to access your account
           </div>
@@ -121,7 +127,7 @@ function LoginForm() {
             </span>
           </div>
         </div>
-        <button onClick={logout}>Logout</button>
+        {/* <button onClick={logout}>Logout</button> */}
       </div>
     </main>
   );
