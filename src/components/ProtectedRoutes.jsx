@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import { Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-function ProtectedRoutes({ children }) {
-  const navigate = useNavigate();
+const ProtectedRoutes = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const token = Cookies.get("token");
-
-    console.log("Token in ProtectedRoutes:", token);
+    const token = localStorage.getItem("token");
     setIsAuthenticated(!!token);
     setIsLoading(false);
   }, []);
+
   if (isLoading) {
     return <div>Loading...</div>; // or show a loader
   }
@@ -21,7 +18,8 @@ function ProtectedRoutes({ children }) {
   if (!isAuthenticated) {
     return <Navigate to="/" replace />;
   }
-  return <>{children}</>; // Return protected children if authenticated
-}
+
+  return children;
+};
 
 export default ProtectedRoutes;

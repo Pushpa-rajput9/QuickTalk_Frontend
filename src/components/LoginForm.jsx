@@ -37,11 +37,11 @@ function LoginForm() {
       );
       const data = await res.json();
 
-      document.cookie = `token=${data.token}; maxAge: 24 * 60 * 60 * 1000`;
-      console.log("Token cookie after login:", document.cookie);
+      // document.cookie = `token=${data.token}; maxAge: 24 * 60 * 60 * 1000`;
+      // console.log("Token cookie after login:", document.cookie);
       if (res.ok) {
         setMessage(data.message);
-
+        localStorage.setItem("token", data.token);
         navigate("/chat/home");
         console.log(navigate);
       } else {

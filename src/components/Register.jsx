@@ -4,41 +4,129 @@ import LoginBanner from "../assets/YouTube Banner - Quick Talk - Real-Time Chat.
 import logo from "../assets/quick-high-resolution-logo-transparent.png";
 import { NavLink, useNavigate } from "react-router-dom";
 function Register() {
-  const [inputNo, setInput] = useState({
+  const [formData, setFormData] = useState({
     identifier: "",
     otp: "",
     password: "",
+    username: "",
+    phone: "",
+    confirmPassword: "",
   });
   const navigate = useNavigate();
   const [message, setMeassage] = useState("");
+  const [errors, setErrors] = useState({});
+  const validateField = (name, value) => {
+    const phonePattern = /^\d{10}$/;
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    let error = "";
+
+    switch (name) {
+      case "username":
+        if (!value.trim()) error = "Name is required";
+        break;
+      case "identifier":
+        if (!value.trim()) error = "Email is required";
+        else if (!emailPattern.test(value)) error = "Invalid email";
+        break;
+      case "phone":
+        if (!value.trim()) error = "Mobile is required";
+        else if (!phonePattern.test(value))
+          error = "Enter a valid 10-digit mobile number";
+        break;
+      case "password":
+        if (!value.trim()) error = "Password is required";
+        break;
+
+      default:
+        break;
+    }
+
+    // Set or clear the error
+    setErrors((prev) => {
+      const updatedErrors = { ...prev };
+      if (error) updatedErrors[name] = error;
+      else delete updatedErrors[name];
+      return updatedErrors;
+    });
+  };
+
   const handlechange = (e) => {
     const { name, value } = e.target;
-    setInput((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    validateField(name, value);
+  };
+
+  const validation = () => {
+    const stepErrors = {};
+    const phonePattern = /^\d{10,15}$/;
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!formData.username) {
+      stepErrors.username = "Username is required";
+    }
+    if (!formData.phone.trim()) stepErrors.phone = "Mobile is required";
+    else if (!phonePattern.test(formData.phone)) {
+      stepErrors.phone = "Enter a valid 10-digit mobile number";
+    }
+    if (!formData.identifier.trim()) {
+      stepErrors.identifier = "Email is required";
+    } else if (!regex.test(formData.identifier)) {
+      stepErrors.identifier = "Invalid email";
+    }
+    if (!formData.password) {
+      stepErrors.password = "Password is required";
+    }
+    if (formData.password !== formData.confirmPassword) {
+      stepErrors.confirmPassword = "Passwords do not match";
+    }
+
+    return stepErrors;
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch(
-        "https://quicktalk-backend-kni5.onrender.com/api/v1/otp/register",
-        {
-          method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            identifier: inputNo.identifier,
-            password: inputNo.password,
-          }),
+    const finalErrors = {
+      ...validation(),
+    };
+    if (Object.keys(finalErrors).length === 0) {
+      console.log("Form submitted", formData);
+
+      // Handle form submission logic here (e.g., sending to an API)
+      const formDataToSend = {
+        identifier: formData.identifier,
+        password: formData.password,
+        username: formData.username,
+        phone: formData.phone,
+      };
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/v1/otp/register`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formDataToSend),
+          }
+        );
+        const result = await response.json();
+        if (response.ok) {
+          setMeassage(result.message);
+          localStorage.setItem("token", result.token);
+          navigate("/chat/home");
+          // window.location.reload();
+        } else {
+          setMeassage(result.message);
         }
-      );
-      const result = await response.json();
-      if (response.ok) {
-        setMeassage(result.message);
-        navigate("/chat/home");
-      } else {
-        setMeassage(result.message);
+      } catch (e) {
+        setMeassage(`Error: ${e.message}. Server error`);
+
+        return e;
       }
-    } catch (error) {
-      setMeassage(error.message);
+    } else {
+      setErrors(finalErrors);
     }
   };
 
@@ -85,8 +173,8 @@ function Register() {
             alt="LoginBanner"
           />
         </div>
-        <div className="w-1/2 max-[820px]:w-full flex flex-col items-center justify-center bg-gradient-to-r from-[#0f2027] via-[#203a43] to-[#2c5364]">
-          <div className=" w-96 max-[820px]:w-[450px] max-[520px]:w-11/12 h-[480px] max-sm:p-4 p-10 pt-4 items-center mt-10 flex animate-slideIn flex-col  gap-2 bg-white rounded-lg shadow-lg shadow-black ">
+        <div className="w-1/2 max-[820px]:w-full flex flex-col p-5 items-center justify-center bg-gradient-to-r from-[#0f2027] via-[#203a43] to-[#2c5364]">
+          <div className=" w-96 max-[820px]:w-[450px] max-[520px]:w-11/12 max-sm:p-4 p-10  pt-4 items-center flex animate-slideIn flex-col  gap-2 bg-white rounded-lg shadow-lg shadow-black ">
             <img className=" w-28 h-12" src={chaticon} alt="chaticon" />
             <div className=" text-black font-bold text-2xl max-[317px]:text-lg">
               Welcome to QuikTalk!
@@ -99,6 +187,21 @@ function Register() {
               onSubmit={handleSubmit}
             >
               <div className=" w-full">
+                <label htmlFor="">Name</label>
+                <br />
+                <input
+                  name="username"
+                  placeholder="Enter your Name"
+                  className="border-2 w-full  border-gray-300 focus:outline-none rounded p-2 h-10"
+                  onChange={handlechange}
+                  value={formData.username}
+                  type="text"
+                />
+                <div className="w-56 text-red-700 text-[12px] ">
+                  {errors.username && <span>{errors.username}*</span>}
+                </div>
+              </div>
+              <div className=" w-full">
                 <label htmlFor="">Email</label>
                 <br />
                 <input
@@ -106,8 +209,25 @@ function Register() {
                   placeholder="Enter your email"
                   name="identifier"
                   onChange={handlechange}
-                  value={inputNo.identifier}
+                  value={formData.identifier}
                 />
+                <div className="w-56 text-red-700 text-[12px] ">
+                  {errors.identifier && <span>{errors.identifier}*</span>}
+                </div>
+              </div>
+              <div className=" w-full">
+                <label htmlFor="">Phone</label>
+                <br />
+                <input
+                  className="border-2 w-full border-gray-300 focus:outline-none rounded p-2 h-10"
+                  placeholder="Phone number"
+                  name="phone"
+                  onChange={handlechange}
+                  value={formData.phone}
+                />
+                <div className="w-56 text-red-700 text-[12px] ">
+                  {errors.phone && <span>{errors.phone}*</span>}
+                </div>
               </div>
               <div className=" w-full">
                 <label htmlFor="">Password</label>
@@ -117,9 +237,29 @@ function Register() {
                   placeholder="Enter your password"
                   className="border-2 w-full  border-gray-300 focus:outline-none rounded p-2 h-10"
                   onChange={handlechange}
-                  value={inputNo.password}
+                  value={formData.password}
                   type="password"
                 />
+                <div className="w-56 text-red-700 text-[12px] ">
+                  {errors.password && <span>{errors.password}*</span>}
+                </div>
+              </div>
+              <div className=" w-full">
+                <label htmlFor="">Confirm Password</label>
+                <br />
+                <input
+                  name="confirmPassword"
+                  placeholder="Enter your password"
+                  className="border-2 w-full  border-gray-300 focus:outline-none rounded p-2 h-10"
+                  onChange={handlechange}
+                  value={formData.confirmPassword}
+                  type="password"
+                />
+                <div className="w-56 text-red-700 text-[12px] ">
+                  {errors.confirmPassword && (
+                    <span>{errors.confirmPassword}*</span>
+                  )}
+                </div>
               </div>
               <button
                 className="w-full rounded-md mt-3 text-white h-10  bg-black"
