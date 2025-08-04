@@ -95,7 +95,7 @@ function Register() {
 
       // Handle form submission logic here (e.g., sending to an API)
       const formDataToSend = {
-        identifier: formData.identifier,
+        identifier: formData.identifier.toLowerCase(),
         password: formData.password,
         username: formData.username,
         phone: formData.phone,
@@ -130,33 +130,33 @@ function Register() {
     }
   };
 
-  const verifyOTP = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch(
-        "https://quicktalk-backend-kni5.onrender.com/api/v1/otp/verify-otp",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({
-            identifier: `+91${inputNo.phone}`,
-            otp: inputNo.otp,
-          }),
-        }
-      );
+  // const verifyOTP = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const res = await fetch(
+  //       "https://quicktalk-backend-kni5.onrender.com/api/v1/otp/verify-otp",
+  //       {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         credentials: "include",
+  //         body: JSON.stringify({
+  //           identifier: `+91${inputNo.phone}`,
+  //           otp: inputNo.otp,
+  //         }),
+  //       }
+  //     );
 
-      const data = await res.json();
-      alert(data.message);
-      if (res.ok) {
-        setMeassage(data.message);
-      } else {
-        setMeassage(data.message);
-      }
-    } catch (error) {
-      setMeassage(error.message);
-    }
-  };
+  //     const data = await res.json();
+  //     alert(data.message);
+  //     if (res.ok) {
+  //       setMeassage(data.message);
+  //     } else {
+  //       setMeassage(data.message);
+  //     }
+  //   } catch (error) {
+  //     setMeassage(error.message);
+  //   }
+  // };
   return (
     <>
       <div className=" flex flex-wrap w-full  ">

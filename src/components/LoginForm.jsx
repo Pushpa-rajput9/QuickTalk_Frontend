@@ -14,20 +14,17 @@ function LoginForm() {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
   const logout = async () => {
-    await fetch(
-      "https://quicktalk-backend-kni5.onrender.com/api/v1/otp/logout",
-      {
-        method: "POST",
-        credentials: "include", // ✅ delete cookie
-      }
-    );
+    await fetch(`${import.meta.env.VITE_API_URL}/api/v1/otp/logout`, {
+      method: "POST",
+      credentials: "include", // ✅ delete cookie
+    });
     alert("Logged out");
   };
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
       const res = await fetch(
-        "https://quicktalk-backend-kni5.onrender.com/api/v1/otp/login",
+        `${import.meta.env.VITE_API_URL}/api/v1/otp/logout`,
         {
           method: "POST",
           credentials: "include", // ✅ include cookie
