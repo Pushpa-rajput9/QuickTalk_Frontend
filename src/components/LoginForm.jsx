@@ -24,7 +24,7 @@ function LoginForm() {
     try {
       e.preventDefault();
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/v1/otp/logout`,
+        `${import.meta.env.VITE_API_URL}/api/v1/otp/login`,
         {
           method: "POST",
           credentials: "include", // ✅ include cookie
