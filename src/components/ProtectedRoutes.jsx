@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const ProtectedRoutes = ({ children }) => {
@@ -19,7 +19,7 @@ const ProtectedRoutes = ({ children }) => {
     return <Navigate to="/" replace />;
   }
 
-  return children;
+  return <Outlet /> || children;
 };
 
 export default ProtectedRoutes;
