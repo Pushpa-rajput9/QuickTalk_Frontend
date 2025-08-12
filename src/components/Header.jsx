@@ -50,7 +50,7 @@ function Header() {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/v1/otp/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/v1/user/${id}`,
         {
           method: "GET",
           headers: {

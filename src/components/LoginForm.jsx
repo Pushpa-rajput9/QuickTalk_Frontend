@@ -14,7 +14,7 @@ function LoginForm() {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
   const logout = async () => {
-    await fetch(`${import.meta.env.VITE_API_URL}/api/v1/otp/logout`, {
+    await fetch(`${import.meta.env.VITE_API_URL}/api/v1/user/logout`, {
       method: "POST",
       credentials: "include", // ✅ delete cookie
     });
@@ -28,7 +28,7 @@ function LoginForm() {
         password: input.password,
       };
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/v1/otp/login`,
+        `${import.meta.env.VITE_API_URL}/api/v1/user/login`,
         {
           method: "POST",
           credentials: "include", // ✅ include cookie

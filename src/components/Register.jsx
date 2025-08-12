@@ -102,7 +102,7 @@ function Register() {
       };
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/v1/otp/register`,
+          `${import.meta.env.VITE_API_URL}/api/v1/user/register`,
           {
             method: "POST",
             headers: {
