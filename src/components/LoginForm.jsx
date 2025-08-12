@@ -23,13 +23,17 @@ function LoginForm() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
+      const formDataToSend = {
+        identifier: input.identifier.toLowerCase(),
+        password: input.password,
+      };
       const res = await fetch(
         `${import.meta.env.VITE_API_URL}/api/v1/otp/login`,
         {
           method: "POST",
           credentials: "include", // ✅ include cookie
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(input),
+          body: JSON.stringify(formDataToSend),
         }
       );
       const data = await res.json();
@@ -45,7 +49,8 @@ function LoginForm() {
         setMessage(data.message);
       }
     } catch (error) {
-      setMessage(error.message);
+      setMessage("Internal server error, please try again later.");
+      return error;
     }
   };
 

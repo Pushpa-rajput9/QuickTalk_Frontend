@@ -23,8 +23,8 @@ function Header() {
 
       if (decodedToken.exp < currentTime) {
         console.error("Token expired");
-        localStorage.removeItem("token");
-        navigate("/");
+        // localStorage.removeItem("token");
+        // navigate("/");
         return null;
       }
 
@@ -37,8 +37,8 @@ function Header() {
       return user;
     } catch (error) {
       console.error("Invalid token:", error.message);
-      localStorage.removeItem("token");
-      navigate("/");
+      //localStorage.removeItem("token");
+      // navigate("/");
       return null;
     }
   };
